@@ -146,6 +146,7 @@ function formPlayerRichEmbed (client, pStats) {
                 .addField('Level', pStats.pLevel, true)
                 .setColor('#ff7d00')
                 .setImage(pStats.pIcon)
+                .setFooter('Developed by @Lewey#6767')
                 .setAuthor(client.user.username, client.user.avatarURL);
 
         } else {
@@ -175,6 +176,7 @@ function formPlayerRichEmbed (client, pStats) {
                 .addField('Level', pStats.pLevel, true)
                 .setColor('#ff7d00')
                 .setImage(pStats.pIcon)
+                .setFooter('Developed by @Lewey#6767')
                 .setAuthor(client.user.username, client.user.avatarURL);
         }
 
