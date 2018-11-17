@@ -6,7 +6,7 @@
 
 const Discord = require("discord.js");
 const client = new Discord.Client();
-const config = require('./config.json');
+const config = require('./config/config.json');
 
 //****
 // Custom functions
@@ -44,8 +44,8 @@ client.on("message", async message => {
     //Checks if server in backlist;
     if (isBlacklisted) return;
 
-    //Dont do any thing if the bot doesnt have perms
-    if (hasManageMessagePermissions === "false") {
+    //Dont do any thing if the bot doesn't have perms
+    if (hasManageMessagePermissions === false) {
         return
     }
 
@@ -54,7 +54,7 @@ client.on("message", async message => {
         let platform = args[0];
         let username = args.slice(1).join('%20');
 
-        let allowedPlatforms = ["xbl","psn","battle"];
+        let allowedPlatforms = ["xbl","psn","pc"];
 
         if (!username) {
             message.reply("Incorrect command format, e.g bo4!cr platform username");
@@ -68,6 +68,11 @@ client.on("message", async message => {
         }
 
         if (allowedPlatforms.indexOf(platform) > -1 ) {
+
+            if (platform === 'pc') {
+                platform = "battle"
+            }
+
             playerCombatRecord.get(client,username,platform)
                 .then(function (formattedCombatRecord) {
                     message.reply(formattedCombatRecord);

@@ -6,7 +6,7 @@
 
 const getPlayerData = require('../../utils/getPlayerData');
 const Discord = require('discord.js');
-const images = require('../../utils/imagesLinks.json');
+const images = require('../../config/imagesLinks.json');
 const timeFormatter = require('../../utils/timeFormatter');
 
 /**
