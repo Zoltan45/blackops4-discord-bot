@@ -1,6 +1,9 @@
 {
   "token": "",
-  "prefix": ".",
+  "prefix": "bo4.",
   "blacklist": [],
-  "owners": []
+  "owners": [],
+  "elasticsearch":{
+    "host": ""
+  }
 }

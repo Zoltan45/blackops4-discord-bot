@@ -1,5 +1,5 @@
 /**
- * @file getPlayerData.js
+ * @file getPlayerData.js.js
  * @author Lewey
  * @description make api request and retrieve userdata
  **/

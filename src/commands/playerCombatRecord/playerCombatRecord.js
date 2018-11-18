@@ -8,15 +8,16 @@ const getPlayerData = require('../../utils/getPlayerData');
 const Discord = require('discord.js');
 const images = require('../../config/imagesLinks.json');
 const timeFormatter = require('../../utils/timeFormatter');
+const postToElasticsearch = require('../../elasticsearch/postToElasticsearch');
 
 /**
- * Use getPlayerData to retrieve users stats and format into Discord RichEmbed
+ * Use getPlayerData.js to retrieve users stats and format into Discord RichEmbed
  *
  * @param {Object} [client] - Discord client Object
  * @param {string} [username] - username to use in request
- * @param {string} [platform] - username to use in request
+ * @param {string} [platform] - platform to use
  *
- * @return {Object} [RichEmbed] - formatted time
+ * @return {Object} [RichEmbed] - formatted player combat record for multiplayer
  **/
 
 async function get (client, username, platform) {
@@ -60,10 +61,6 @@ async function get (client, username, platform) {
                     pIcon = images.prestige[pPrestige];
                 }
 
-                if (pPrestige === 11) {
-                    pPrestige = 'Master';
-                }
-
                 let pStats = {
                     "pTotalPlayTime": pTotalPlayTime,
                     "pKills": pKills,
@@ -85,7 +82,8 @@ async function get (client, username, platform) {
                     "pApiUrl": pApiUrl
                 };
 
-                console.log(pStats);
+                //send to elasticsearch cluster
+                postToElasticsearch('multiplayer', pStats);
 
                 let formattedCombatRecord = await formPlayerRichEmbed(client,pStats);
 
@@ -103,7 +101,7 @@ async function get (client, username, platform) {
 }
 
 /**
- * Use getPlayerData to retrieve users stats and format into Discord RichEmbed
+ * Use getPlayerData.js to retrieve users stats and format into Discord RichEmbed
  *
  * @param {Object} [client] - Discord client Object
  * @param {Object} [pStats] - JSON object of user stats from get()
@@ -119,6 +117,10 @@ function formPlayerRichEmbed (client, pStats) {
         let rEmbed = '';
 
         let platformThumb = images.platform[pStats.pPlatform];
+
+        if (pStats.pPrestige === 11) {
+            pStats.pPrestige = 'Master';
+        }
 
         if (pStats.pPrestige === 0) {
 
