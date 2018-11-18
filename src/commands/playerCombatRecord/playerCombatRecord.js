@@ -41,14 +41,14 @@ async function get (client, username, platform) {
                 let pEKIA               = userData.data.mp.lifetime.all.ekia;
                 let pAssists            = userData.data.mp.lifetime.all.assists;
                 let pDeaths             = userData.data.mp.lifetime.all.deaths;
-                let pEKIADRatio         = userData.data.mp.lifetime.all.ekiadRatio.toFixed(2);
+                let pEKIADRatio         = parseFloat(userData.data.mp.lifetime.all.ekiadRatio.toFixed(2));
                 let pUserName           = userData.data.username;
                 let pPlatform           = platform;
                 let pCalculatedKills    = Math.ceil(parseInt(pEKIA-pAssists));
-                let pCalculatedKDRatio  = (pCalculatedKills/pDeaths).toFixed(2);
+                let pCalculatedKDRatio  = parseFloat((pCalculatedKills/pDeaths).toFixed(2));
                 let pWins               = userData.data.mp.lifetime.all.wins;
                 let pLosses             = userData.data.mp.lifetime.all.losses;
-                let pWLRatio            = (pWins/pLosses).toFixed(2);
+                let pWLRatio            = parseFloat((pWins/pLosses).toFixed(2));
                 let pWinstreak          = userData.data.mp.lifetime.all.curWinStreak;
                 let pLevel              = userData.data.mp.level;
                 let pPrestige           = Math.ceil(userData.data.mp.prestige);
@@ -141,7 +141,7 @@ function formPlayerRichEmbed (client, pStats) {
                 .addField('W/L Ratio',pStats.pWLRatio,true)
                 .addField('Current Winstreak', pStats.pWinstreak)
                 .addBlankField()
-                .addField('Calculated Stats', 'More accurate stats removing assists from K/D etc')
+                .addField('Calculated Stats', 'Kills are calculated by subtracting assists from EKIAs')
                 .addField('Kills', pStats.pCalculatedKills, true)
                 .addField('Deaths', pStats.pDeaths, true)
                 .addField('K/D Ratio', pStats.pCalculatedKDRatio)

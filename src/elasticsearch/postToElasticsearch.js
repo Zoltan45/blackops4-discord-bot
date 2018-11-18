@@ -30,7 +30,7 @@ module.exports = async function (gamemode, pStats) {
     if (!gamemode) { return console.log('No Index/gamemode was selected, {valid modes: ' + bo4gamemodes)}
     if (!pStats) { return console.log('No userstats were passed as a parameter')}
 
-    let userUsername = pStats.pUserName.replace('#', '-');
+    let userUsername = pStats.pUserName.replace('#', '-').toLowerCase();
 
     if (bo4gamemodes.indexOf(gamemode) > -1 ) {
 
