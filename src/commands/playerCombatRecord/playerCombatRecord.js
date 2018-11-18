@@ -53,6 +53,7 @@ async function get (client, username, platform) {
                 let pLevel              = userData.data.mp.level;
                 let pPrestige           = Math.ceil(userData.data.mp.prestige);
                 let pApiUrl             = `https://my.callofduty.com/api/papi-client/crm/cod/v2/title/bo4/platform/${platform}/gamer/${username}/profile/`;
+                let pRawData            = userData.data.mp.lifetime.all;
 
                 //Get correct icon for rank
                 if (pPrestige === 0) {
@@ -79,7 +80,8 @@ async function get (client, username, platform) {
                     "pLevel": pLevel,
                     "pPrestige": pPrestige,
                     "pIcon": pIcon,
-                    "pApiUrl": pApiUrl
+                    "pApiUrl": pApiUrl,
+                    "pRawData": pRawData
                 };
 
                 //send to elasticsearch cluster
@@ -110,7 +112,6 @@ async function get (client, username, platform) {
  **/
 
 function formPlayerRichEmbed (client, pStats) {
-
 
     return new Promise(function (resolve, reject) {
 

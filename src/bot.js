@@ -45,7 +45,7 @@ client.on("message", async message => {
     if (isBlacklisted) return;
 
     //Dont do any thing if the bot doesn't have perms
-    if (hasManageMessagePermissions === false) {
+    if (hasManageMessagePermissions === 'false') {
         return
     }
 
@@ -57,12 +57,12 @@ client.on("message", async message => {
         let allowedPlatforms = ["xbl","psn","pc"];
 
         if (!username) {
-            message.reply("Incorrect command format, e.g bo4!cr platform username");
+            message.reply(`Incorrect command format, e.g ${config.prefix}cr platform{pc|psn|xbl} username`);
             message.reply(`Valid platforms ${allowedPlatforms}`);
             return
         }
         if (!platform) {
-            message.reply("Incorrect command format, e.g bo4!cr platform username");
+            message.reply(`Incorrect command format, e.g ${config.prefix}cr platform{pc|psn|xbl} username`);
             message.reply(`Valid platforms ${allowedPlatforms}`);
             return
         }

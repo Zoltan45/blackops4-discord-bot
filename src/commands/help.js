@@ -7,7 +7,7 @@ module.exports = function (client) {
         rEmbed = new Discord.RichEmbed()
             .setTitle('Command Help')
             .addField('Combat Record','bo4!cr <platform> <username>',true)
-            .addField('Parameters','Platform = xbl, psn, battle | Username = users username',true)
+            .addField('Parameters','platform{pc|psn|xbl} username = your username or battlenet id',true)
             .setAuthor(client.user.username, client.user.avatarURL)
             .setFooter('Developed by @Lewey#6767');
 

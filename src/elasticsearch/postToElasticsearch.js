@@ -46,21 +46,19 @@ module.exports = async function (gamemode, pStats) {
             });
         });
 
-        if (!isESClusterUp) { return console.log('Cluster is not up')}
+        if (!isESClusterUp) { return console.error('Cluster is not up, maybe my ip is not whitelisted')}
 
         let esUrl = esconfig.elasticsearch.host + '/' + gamemode + '/doc/' + userUsername;
 
-        request({
-            uri: esUrl,
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+        //Send data to elastic
+        const res = await esclient.index({
+            index: gamemode,
+            type: 'doc',
+            id: userUsername,
             body: esFormattedUserStats
-        }, function (err, res, body) {
-            if (err) return console.log(err);
-            return console.log(res.body);
-        })
+        });
+
+        console.log(res)
 
     } else {
         return console.log('No valid game mode passed, valid modes: ' + bo4gamemodes)
