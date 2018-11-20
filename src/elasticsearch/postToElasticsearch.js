@@ -4,14 +4,11 @@
  * @description post userdata to elasticsearch for data visualisation
  **/
 
-
 const elasticsearch = require('elasticsearch');
-const request = require('request');
-
+const logger = require('../utils/logging.js');
 const esconfig = require('../config/config');
 const esclient = new elasticsearch.Client({
-    host: esconfig.elasticsearch.host,
-    log: 'trace'
+    host: esconfig.elasticsearch.host
 });
 
 /**
@@ -48,8 +45,6 @@ module.exports = async function (gamemode, pStats) {
 
         if (!isESClusterUp) { return console.error('Cluster is not up, maybe my ip is not whitelisted')}
 
-        let esUrl = esconfig.elasticsearch.host + '/' + gamemode + '/doc/' + userUsername;
-
         //Send data to elastic
         const res = await esclient.index({
             index: gamemode,
@@ -58,7 +53,9 @@ module.exports = async function (gamemode, pStats) {
             body: esFormattedUserStats
         });
 
-        console.log(res)
+        logger('elasticsearch','/' + gamemode + '/doc/' + userUsername);
+        logger('elasticsearch', res)
+
 
     } else {
         return console.log('No valid game mode passed, valid modes: ' + bo4gamemodes)

@@ -5,6 +5,7 @@
  **/
 
 const request = require('request');
+const logger = require('./logging.js');
 
 /**
  * @param {string} [username] - username to use in request
@@ -20,7 +21,8 @@ function getPlayerData (username, platform, type) {
 
         let ApiUrl = `https://my.callofduty.com/api/papi-client/crm/cod/v2/title/bo4/platform/${platform}/gamer/${username}/profile/type/${type}`;
 
-        console.log(ApiUrl);
+        logger('request', ApiUrl);
+
         request({
             uri: ApiUrl,
             method: 'GET'
@@ -31,9 +33,11 @@ function getPlayerData (username, platform, type) {
             let parsedBody = JSON.parse(body);
 
             if (parsedBody.status === 'error') {
-                reject(JSON.stringify(body))
+                reject(JSON.stringify(body));
+                logger('request', `${username} | ${type} | ${platform} | ${JSON.stringify(body)}`);
             } else {
                 resolve(parsedBody);
+                logger('request', `${username} | ${type} | ${platform}` );
             }
 
         })
