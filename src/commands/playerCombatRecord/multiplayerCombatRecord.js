@@ -1,5 +1,5 @@
 /**
- * @file playerCombatRecord.js
+ * @file multiplayerCombatRecord.js
  * @author Lewey
  * @description build and format combat record for user
  **/
@@ -32,7 +32,7 @@ async function get (client, username, platform) {
             username = username.replace(' ', '%20');
         }
 
-        getPlayerData.getPlayerData(username, platform)
+        getPlayerData.getPlayerData(username, platform, 'mp')
             .then(async function (userData) {
 
                 //Stats
@@ -57,9 +57,9 @@ async function get (client, username, platform) {
 
                 //Get correct icon for rank
                 if (pPrestige === 0) {
-                    pIcon = images.noprestige[pLevel];
+                    pIcon = images.multiplayer.noprestige[pLevel];
                 } else {
-                    pIcon = images.prestige[pPrestige];
+                    pIcon = images.multiplayer.prestige[pPrestige];
                 }
 
                 let pStats = {
@@ -126,7 +126,7 @@ function formPlayerRichEmbed (client, pStats) {
         if (pStats.pPrestige === 0) {
 
             rEmbed = new Discord.RichEmbed()
-                .setTitle('Combat Record')
+                .setTitle('Multiplayer Combat Record')
                 .setThumbnail(platformThumb)
                 .addField('Username', pStats.pUserName,true)
                 .addField('Platform', pStats.pPlatform,true)
@@ -155,7 +155,7 @@ function formPlayerRichEmbed (client, pStats) {
         } else {
 
             rEmbed = new Discord.RichEmbed()
-                .setTitle('Combat Record')
+                .setTitle('Multiplayer Combat Record')
                 .setThumbnail(platformThumb)
                 .addField('Username', pStats.pUserName,true)
                 .addField('Platform', pStats.pPlatform,true)

@@ -9,15 +9,18 @@ const request = require('request');
 /**
  * @param {string} [username] - username to use in request
  * @param {string} [platform] - platform to be searched - psn,xbl,battle
+ * @param {string} [type] - {zombies|mp(multiplayer)|blackout}
+
  * @return {JSON} [userdata] - userdata
  **/
 
-function getPlayerData (username, platform) {
+function getPlayerData (username, platform, type) {
 
     return new Promise(function (resolve, reject) {
 
-        let ApiUrl = `https://my.callofduty.com/api/papi-client/crm/cod/v2/title/bo4/platform/${platform}/gamer/${username}/profile/`;
+        let ApiUrl = `https://my.callofduty.com/api/papi-client/crm/cod/v2/title/bo4/platform/${platform}/gamer/${username}/profile/type/${type}`;
 
+        console.log(ApiUrl);
         request({
             uri: ApiUrl,
             method: 'GET'
@@ -39,5 +42,5 @@ function getPlayerData (username, platform) {
 
 }
 
-module.exports.getPlayerData = (battleNetId,platform) => getPlayerData(battleNetId,platform);
+module.exports.getPlayerData = (battleNetId,platform,type) => getPlayerData(battleNetId,platform,type);
 

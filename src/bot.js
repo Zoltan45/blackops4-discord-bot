@@ -10,20 +10,23 @@ const config = require('./config/config.json');
 
 //****
 // Custom functions
-const playerCombatRecord = require('./commands/playerCombatRecord/playerCombatRecord');
+const multiplayerCombatRecord = require('./commands/playerCombatRecord/multiplayerCombatRecord');
+const zombiesCombatRecord = require('./commands/playerCombatRecord/zombiesCombatRecord');
+const blackoutCombatRecord = require('./commands/playerCombatRecord/blackoutCombatRecord');
+
 const helpCommand = require('./commands/help');
 //
 //****
 
 client.on("ready", () => {
     console.log(`${client.user.username} is online`);
-    client.user.setActivity(`${client.guilds.size} Servers | ${client.users.size} Users`, { type: 'WATCHING' })
+    client.user.setActivity(`${client.guilds.size} Servers | ${client.users.size} Users | ${config.prefix}help`, { type: 'WATCHING' });
 });
 
 client.on("message", async message => {
 
     // update activity on every new message
-    client.user.setActivity(`${client.guilds.size} Servers | ${client.users.size} Users`, { type: 'WATCHING' });
+    client.user.setActivity(`${client.guilds.size} Servers | ${client.users.size} Users | ${config.prefix}help`, { type: 'WATCHING' });
 
     if (message.author.bot) return;
 
@@ -49,7 +52,7 @@ client.on("message", async message => {
         return
     }
 
-    if (command === `${config.prefix}cr`) {
+    if (command === `${config.prefix}mp`) {
 
         let platform = args[0];
         let username = args.slice(1).join('%20');
@@ -73,7 +76,83 @@ client.on("message", async message => {
                 platform = "battle"
             }
 
-            playerCombatRecord.get(client,username,platform)
+            multiplayerCombatRecord.get(client,username,platform)
+                .then(function (formattedCombatRecord) {
+                    message.reply(formattedCombatRecord);
+                    message.delete()
+                })
+                .catch(function (err) {
+                    console.log(`Error: ${err}`)
+                })
+        } else {
+            message.reply("Invalid platform")
+        }
+
+    }
+
+    if (command === `${config.prefix}zm`) {
+
+        let platform = args[0];
+        let username = args.slice(1).join('%20');
+
+        let allowedPlatforms = ["xbl","psn","pc"];
+
+        if (!username) {
+            message.reply(`Incorrect command format, e.g ${config.prefix}cr platform{pc|psn|xbl} username`);
+            message.reply(`Valid platforms ${allowedPlatforms}`);
+            return
+        }
+        if (!platform) {
+            message.reply(`Incorrect command format, e.g ${config.prefix}cr platform{pc|psn|xbl} username`);
+            message.reply(`Valid platforms ${allowedPlatforms}`);
+            return
+        }
+
+        if (allowedPlatforms.indexOf(platform) > -1 ) {
+
+            if (platform === 'pc') {
+                platform = "battle"
+            }
+
+            zombiesCombatRecord.get(client,username,platform)
+                .then(function (formattedCombatRecord) {
+                    message.reply(formattedCombatRecord);
+                    message.delete()
+                })
+                .catch(function (err) {
+                    console.log(`Error: ${err}`)
+                })
+        } else {
+            message.reply("Invalid platform")
+        }
+
+    }
+
+    if (command === `${config.prefix}bo`) {
+
+        let platform = args[0];
+        let username = args.slice(1).join('%20');
+
+        let allowedPlatforms = ["xbl","psn","pc"];
+
+        if (!username) {
+            message.reply(`Incorrect command format, e.g ${config.prefix}cr platform{pc|psn|xbl} username`);
+            message.reply(`Valid platforms ${allowedPlatforms}`);
+            return
+        }
+        if (!platform) {
+            message.reply(`Incorrect command format, e.g ${config.prefix}cr platform{pc|psn|xbl} username`);
+            message.reply(`Valid platforms ${allowedPlatforms}`);
+            return
+        }
+
+        if (allowedPlatforms.indexOf(platform) > -1 ) {
+
+            if (platform === 'pc') {
+                platform = "battle"
+            }
+
+            blackoutCombatRecord.get(client,username,platform)
                 .then(function (formattedCombatRecord) {
                     message.reply(formattedCombatRecord);
                     message.delete()
