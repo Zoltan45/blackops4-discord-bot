@@ -14,7 +14,10 @@ const multiplayerCombatRecord = require('./commands/playerCombatRecord/multiplay
 const zombiesCombatRecord = require('./commands/playerCombatRecord/zombiesCombatRecord');
 const blackoutCombatRecord = require('./commands/playerCombatRecord/blackoutCombatRecord');
 
-const helpCommand = require('./commands/help');
+const helpCommand = require('./commands/help.js');
+const profileCommand = require('./commands/profile.js');
+const linkCommand = require('./commands/link.js');
+
 //
 //****
 
@@ -72,10 +75,6 @@ client.on("message", async message => {
 
         if (allowedPlatforms.indexOf(platform) > -1 ) {
 
-            if (platform === 'pc') {
-                platform = "battle"
-            }
-
             multiplayerCombatRecord.get(client,username,platform)
                 .then(function (formattedCombatRecord) {
                     message.reply(formattedCombatRecord);
@@ -109,10 +108,6 @@ client.on("message", async message => {
         }
 
         if (allowedPlatforms.indexOf(platform) > -1 ) {
-
-            if (platform === 'pc') {
-                platform = "battle"
-            }
 
             zombiesCombatRecord.get(client,username,platform)
                 .then(function (formattedCombatRecord) {
@@ -148,10 +143,6 @@ client.on("message", async message => {
 
         if (allowedPlatforms.indexOf(platform) > -1 ) {
 
-            if (platform === 'pc') {
-                platform = "battle"
-            }
-
             blackoutCombatRecord.get(client,username,platform)
                 .then(function (formattedCombatRecord) {
                     message.reply(formattedCombatRecord);
@@ -169,6 +160,13 @@ client.on("message", async message => {
     if (command === `${config.prefix}help`) {
         let helpEmbed = await helpCommand(client);
         message.reply(helpEmbed)
+    }
+
+    if (command === `${config.prefix}profile`) {
+        profileCommand(message, client)
+    }
+    if (command === `${config.prefix}link`) {
+        linkCommand(message, client)
     }
 });
 

@@ -1,5 +1,5 @@
 /**
- * @file getPlayerData.js.js
+ * @file getPlayerData.js
  * @author Lewey
  * @description make api request and retrieve userdata
  **/
@@ -17,6 +17,14 @@ const logger = require('./logging.js');
 
 function getPlayerData (username, platform, type) {
 
+    if (platform === 'pc') {
+        username = username.replace('#', '%23');
+        platform = 'battle'
+    }
+    if (platform === 'xbl') {
+        username = username.replace(' ', '%20');
+    }
+
     return new Promise(function (resolve, reject) {
 
         let ApiUrl = `https://my.callofduty.com/api/papi-client/crm/cod/v2/title/bo4/platform/${platform}/gamer/${username}/profile/type/${type}`;
@@ -27,13 +35,12 @@ function getPlayerData (username, platform, type) {
             uri: ApiUrl,
             method: 'GET'
         }, function (err, res, body) {
-            if (err) reject(err);
-            if (!res.statusCode === 200) reject(err);
+            if (err) logger('request', err);
+            if (!res.statusCode === 200) logger('request', err);
 
             let parsedBody = JSON.parse(body);
 
             if (parsedBody.status === 'error') {
-                reject(JSON.stringify(body));
                 logger('request', `${username} | ${type} | ${platform} | ${JSON.stringify(body)}`);
             } else {
                 resolve(parsedBody);

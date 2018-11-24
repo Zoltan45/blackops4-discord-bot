@@ -8,7 +8,7 @@ const getPlayerData = require('../../utils/getPlayerData');
 const Discord = require('discord.js');
 const images = require('../../config/imagesLinks.json');
 const timeFormatter = require('../../utils/timeFormatter');
-const postToElasticsearch = require('../../elasticsearch/postToElasticsearch');
+const postToElasticsearch = require('../../elasticsearch/postPlayerStats');
 
 /**
  * Use getPlayerData.js to retrieve users stats and format into Discord RichEmbed
@@ -22,81 +22,65 @@ const postToElasticsearch = require('../../elasticsearch/postToElasticsearch');
 
 async function get (client, username, platform) {
 
-    return new Promise(function (resolve, reject) {
+    return new Promise(async function (resolve, reject) {
 
-        //format platform usernames
-        if (platform === 'battle') {
-            username = username.replace('#', '%23');
+        let userData = await getPlayerData.getPlayerData(username, platform, 'mp')
+
+        //Stats
+        let pTotalPlayTime      = timeFormatter.toHHMMSS(userData.data.mp.lifetime.all.timePlayedTotal);
+        let pKills              = userData.data.mp.lifetime.all.kills;
+        let pEKIA               = userData.data.mp.lifetime.all.ekia;
+        let pAssists            = userData.data.mp.lifetime.all.assists;
+        let pDeaths             = userData.data.mp.lifetime.all.deaths;
+        let pEKIADRatio         = parseFloat(userData.data.mp.lifetime.all.ekiadRatio.toFixed(2));
+        let pUserName           = userData.data.username;
+        let pPlatform           = platform;
+        let pCalculatedKills    = Math.ceil(parseInt(pEKIA-pAssists));
+        let pCalculatedKDRatio  = parseFloat((pCalculatedKills/pDeaths).toFixed(2));
+        let pWins               = userData.data.mp.lifetime.all.wins;
+        let pLosses             = userData.data.mp.lifetime.all.losses;
+        let pWLRatio            = parseFloat((pWins/pLosses).toFixed(2));
+        let pWinstreak          = userData.data.mp.lifetime.all.curWinStreak;
+        let pLevel              = userData.data.mp.level;
+        let pPrestige           = Math.ceil(userData.data.mp.prestige);
+        let pApiUrl             = `https://my.callofduty.com/api/papi-client/crm/cod/v2/title/bo4/platform/${platform}/gamer/${username}/profile/`;
+        let pRawData            = userData.data.mp.lifetime.all;
+
+        //Get correct icon for rank
+        if (pPrestige === 0) {
+            pIcon = images.multiplayer.noprestige[pLevel];
+        } else {
+            pIcon = images.multiplayer.prestige[pPrestige];
         }
-        if (platform === 'xbl') {
-            username = username.replace(' ', '%20');
-        }
 
-        getPlayerData.getPlayerData(username, platform, 'mp')
-            .then(async function (userData) {
+        let pStats = {
+            "pTotalPlayTime": pTotalPlayTime,
+            "pKills": pKills,
+            "pEKIA": pEKIA,
+            "pAssists": pAssists,
+            "pDeaths": pDeaths,
+            "pEKIADRatio": pEKIADRatio,
+            "pUserName": pUserName,
+            "pPlatform": pPlatform,
+            "pCalculatedKills": pCalculatedKills,
+            "pCalculatedKDRatio": pCalculatedKDRatio,
+            "pWins": pWins,
+            "pLosses": pLosses,
+            "pWLRatio": pWLRatio,
+            "pWinstreak": pWinstreak,
+            "pLevel": pLevel,
+            "pPrestige": pPrestige,
+            "pIcon": pIcon,
+            "pApiUrl": pApiUrl,
+            "pRawData": pRawData
+        };
 
-                //Stats
-                let pTotalPlayTime      = timeFormatter.toHHMMSS(userData.data.mp.lifetime.all.timePlayedTotal);
-                let pKills              = userData.data.mp.lifetime.all.kills;
-                let pEKIA               = userData.data.mp.lifetime.all.ekia;
-                let pAssists            = userData.data.mp.lifetime.all.assists;
-                let pDeaths             = userData.data.mp.lifetime.all.deaths;
-                let pEKIADRatio         = parseFloat(userData.data.mp.lifetime.all.ekiadRatio.toFixed(2));
-                let pUserName           = userData.data.username;
-                let pPlatform           = platform;
-                let pCalculatedKills    = Math.ceil(parseInt(pEKIA-pAssists));
-                let pCalculatedKDRatio  = parseFloat((pCalculatedKills/pDeaths).toFixed(2));
-                let pWins               = userData.data.mp.lifetime.all.wins;
-                let pLosses             = userData.data.mp.lifetime.all.losses;
-                let pWLRatio            = parseFloat((pWins/pLosses).toFixed(2));
-                let pWinstreak          = userData.data.mp.lifetime.all.curWinStreak;
-                let pLevel              = userData.data.mp.level;
-                let pPrestige           = Math.ceil(userData.data.mp.prestige);
-                let pApiUrl             = `https://my.callofduty.com/api/papi-client/crm/cod/v2/title/bo4/platform/${platform}/gamer/${username}/profile/`;
-                let pRawData            = userData.data.mp.lifetime.all;
+        //send to elasticsearch cluster
+        postToElasticsearch('multiplayer', pStats);
 
-                //Get correct icon for rank
-                if (pPrestige === 0) {
-                    pIcon = images.multiplayer.noprestige[pLevel];
-                } else {
-                    pIcon = images.multiplayer.prestige[pPrestige];
-                }
+        let formattedCombatRecord = await formPlayerRichEmbed(client,pStats);
 
-                let pStats = {
-                    "pTotalPlayTime": pTotalPlayTime,
-                    "pKills": pKills,
-                    "pEKIA": pEKIA,
-                    "pAssists": pAssists,
-                    "pDeaths": pDeaths,
-                    "pEKIADRatio": pEKIADRatio,
-                    "pUserName": pUserName,
-                    "pPlatform": pPlatform,
-                    "pCalculatedKills": pCalculatedKills,
-                    "pCalculatedKDRatio": pCalculatedKDRatio,
-                    "pWins": pWins,
-                    "pLosses": pLosses,
-                    "pWLRatio": pWLRatio,
-                    "pWinstreak": pWinstreak,
-                    "pLevel": pLevel,
-                    "pPrestige": pPrestige,
-                    "pIcon": pIcon,
-                    "pApiUrl": pApiUrl,
-                    "pRawData": pRawData
-                };
-
-                //send to elasticsearch cluster
-                postToElasticsearch('multiplayer', pStats);
-
-                let formattedCombatRecord = await formPlayerRichEmbed(client,pStats);
-
-                resolve(formattedCombatRecord);
-
-            })
-            .catch(function (err) {
-
-                reject(err)
-
-            });
+        resolve(formattedCombatRecord);
 
     });
 

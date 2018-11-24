@@ -8,7 +8,7 @@ const getPlayerData = require('../../utils/getPlayerData');
 const Discord = require('discord.js');
 const images = require('../../config/imagesLinks.json');
 const timeFormatter = require('../../utils/timeFormatter');
-const postToElasticsearch = require('../../elasticsearch/postToElasticsearch');
+const postToElasticsearch = require('../../elasticsearch/postPlayerStats');
 
 /**
  * Use getPlayerData.js to retrieve users stats and format into Discord RichEmbed
@@ -22,61 +22,45 @@ const postToElasticsearch = require('../../elasticsearch/postToElasticsearch');
 
 async function get (client, username, platform) {
 
-    return new Promise(function (resolve, reject) {
+    return new Promise(async function (resolve, reject) {
 
-        //format platform usernames
-        if (platform === 'battle') {
-            username = username.replace('#', '%23');
-        }
-        if (platform === 'xbl') {
-            username = username.replace(' ', '%20');
-        }
+        let userData = await getPlayerData.getPlayerData(username, platform, 'blackout');
 
-        getPlayerData.getPlayerData(username, platform, 'blackout')
-            .then(async function (userData) {
+        //Stats
+        let pUserName               = userData.data.username;
+        let pPlatform               = platform;
+        let pTotalPlayTime          = timeFormatter.toHHMMSS(userData.data.mp.lifetime.all.timePlayedTotal);
+        let pEKIA                   = userData.data.mp.lifetime.all.ekia;
+        let pEKIADRatio             = parseFloat(userData.data.mp.lifetime.all.ekiadRatio);
+        let pDeaths                 = userData.data.mp.lifetime.all.deaths;
+        let pWins                   = userData.data.mp.lifetime.all.wins;
+        let pHeadshots              = userData.data.mp.lifetime.all.headshots;
+        let pLevel                  = userData.data.mp.level;
+        let pApiUrl                 = `https://my.callofduty.com/api/papi-client/crm/cod/v2/title/bo4/platform/${platform}/gamer/${username}/profile/`;
+        let pRawData                = userData.data.mp.lifetime.all;
+        let pIcon                   = images.blackout[pLevel];
 
-                //Stats
-                let pUserName               = userData.data.username;
-                let pPlatform               = platform;
-                let pTotalPlayTime          = timeFormatter.toHHMMSS(userData.data.mp.lifetime.all.timePlayedTotal);
-                let pEKIA                   = userData.data.mp.lifetime.all.ekia;
-                let pEKIADRatio             = parseFloat(userData.data.mp.lifetime.all.ekiadRatio);
-                let pDeaths                 = userData.data.mp.lifetime.all.deaths;
-                let pWins                   = userData.data.mp.lifetime.all.wins;
-                let pHeadshots              = userData.data.mp.lifetime.all.headshots;
-                let pLevel                  = userData.data.mp.level;
-                let pApiUrl                 = `https://my.callofduty.com/api/papi-client/crm/cod/v2/title/bo4/platform/${platform}/gamer/${username}/profile/`;
-                let pRawData                = userData.data.mp.lifetime.all;
-                let pIcon                   = images.blackout[pLevel];
+        let pStats = {
+            "pUserName": pUserName,
+            "pPlatform": pPlatform,
+            "pTotalPlayTime": pTotalPlayTime,
+            "pEKIA": pEKIA,
+            "pEKIADRatio": pEKIADRatio,
+            "pDeaths": pDeaths,
+            "pHeadshots": pHeadshots,
+            "pWins": pWins,
+            "pLevel": pLevel,
+            "pIcon": pIcon,
+            "pApiUrl": pApiUrl,
+            "pRawData": pRawData
+        };
 
-                let pStats = {
-                    "pUserName": pUserName,
-                    "pPlatform": pPlatform,
-                    "pTotalPlayTime": pTotalPlayTime,
-                    "pEKIA": pEKIA,
-                    "pEKIADRatio": pEKIADRatio,
-                    "pDeaths": pDeaths,
-                    "pHeadshots": pHeadshots,
-                    "pWins": pWins,
-                    "pLevel": pLevel,
-                    "pIcon": pIcon,
-                    "pApiUrl": pApiUrl,
-                    "pRawData": pRawData
-                };
+        //send to elasticsearch cluster
+        postToElasticsearch('blackout', pStats);
 
-                //send to elasticsearch cluster
-                postToElasticsearch('blackout', pStats);
+        let formattedCombatRecord = await formPlayerRichEmbed(client,pStats);
 
-                let formattedCombatRecord = await formPlayerRichEmbed(client,pStats);
-
-                resolve(formattedCombatRecord);
-
-            })
-            .catch(function (err) {
-
-                reject(err)
-
-            });
+        resolve(formattedCombatRecord);
 
     });
 

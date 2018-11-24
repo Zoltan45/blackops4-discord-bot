@@ -1,5 +1,5 @@
 /**
- * @file postToElasticSearch.js
+ * @file postPlayerStats.js
  * @author Lewey
  * @description post userdata to elasticsearch for data visualisation
  **/
