@@ -7,8 +7,8 @@
 //const Discord = require('discord.js');
 const playerDiscordPlatformLink = require('../elasticsearch/playerDiscordPlatformLink.js');
 const logger = require('../utils/logging');
-const multiplayerCombatRecord = require('./playerCombatRecord/multiplayerCombatRecord');
-
+const images = require('../config/imagesLinks.json');
+const Discord = require('discord.js');
 
 /**
  * @param {Object} [message] - discord message object
@@ -26,13 +26,13 @@ module.exports = async function (message, client) {
     if (args.length === 0) {
 
         let linkInfo = await playerDiscordPlatformLink.get(userId);
-        linkInfo = JSON.parse(linkInfo);
 
-        let platform = linkInfo._source.bo4.platform;
-        let username = linkInfo._source.bo4.username;
-        let formattedCombatRecord = await multiplayerCombatRecord.get(client,username,platform);
+        if (linkInfo === 'user-not-linked') {
+            return message.reply(`You have not linked your profile`)
+        }
 
-        message.reply(formattedCombatRecord);
+        let playerProfile = await formProfileRichEmbed(client, linkInfo);
+        message.reply(playerProfile);
         message.delete()
 
     } else {
@@ -46,13 +46,13 @@ module.exports = async function (message, client) {
                 .then(async function () {
                     // it was a real user
                     let linkInfo = await playerDiscordPlatformLink.get(possibleMentionedUser);
-                    linkInfo = JSON.parse(linkInfo);
 
-                    let platform = linkInfo._source.bo4.platform;
-                    let username = linkInfo._source.bo4.username;
+                    if (linkInfo === 'user-not-linked') {
+                        return message.reply(`<@!${possibleMentionedUser}> does not have a linked profile`)
+                    }
 
-                    let formattedCombatRecord = await multiplayerCombatRecord.get(client,username,platform);
-                    message.reply(formattedCombatRecord);
+                    let playerProfile = await formProfileRichEmbed(client, linkInfo);
+                    message.reply(playerProfile);
                     message.delete()
                 })
                 .catch(function (err) {
@@ -63,3 +63,31 @@ module.exports = async function (message, client) {
     }
 
 };
+
+function formProfileRichEmbed (client, linkInfo) {
+
+    return new Promise(function (resolve, reject) {
+
+        let rEmbed = '';
+
+        linkInfo = JSON.parse(linkInfo);
+
+        let discordusername = linkInfo._source.discord.user.nick;
+        let bo4platform = linkInfo._source.bo4.platform;
+        let bo4username = linkInfo._source.bo4.username;
+
+        let platformThumb = images.platform[bo4platform];
+
+        rEmbed = new Discord.RichEmbed()
+            .setTitle(`${discordusername}'s Profile`)
+            .setThumbnail(platformThumb)
+            .addField('Username', bo4username ,true)
+            .addField('Platform', bo4platform ,true)
+            .setColor('#0000f1')
+            .setFooter('Developed by @Lewey#6767')
+            .setAuthor(client.user.username, client.user.avatarURL);
+
+        resolve(rEmbed)
+
+    });
+}

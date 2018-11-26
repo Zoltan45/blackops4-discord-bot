@@ -10,13 +10,14 @@ const config = require('./config/config.json');
 
 //****
 // Custom functions
-const multiplayerCombatRecord = require('./commands/playerCombatRecord/multiplayerCombatRecord');
-const zombiesCombatRecord = require('./commands/playerCombatRecord/zombiesCombatRecord');
-const blackoutCombatRecord = require('./commands/playerCombatRecord/blackoutCombatRecord');
 
 const helpCommand = require('./commands/help.js');
 const profileCommand = require('./commands/profile.js');
 const linkCommand = require('./commands/link.js');
+
+const mpCommand = require('./commands/playerCombatRecord/mp.js');
+const zmCommand = require('./commands/playerCombatRecord/zm.js');
+const boCommand = require('./commands/playerCombatRecord/bo.js');
 
 //
 //****
@@ -56,105 +57,15 @@ client.on("message", async message => {
     }
 
     if (command === `${config.prefix}mp`) {
-
-        let platform = args[0];
-        let username = args.slice(1).join('%20');
-
-        let allowedPlatforms = ["xbl","psn","pc"];
-
-        if (!username) {
-            message.reply(`Incorrect command format, e.g ${config.prefix}cr platform{pc|psn|xbl} username`);
-            message.reply(`Valid platforms ${allowedPlatforms}`);
-            return
-        }
-        if (!platform) {
-            message.reply(`Incorrect command format, e.g ${config.prefix}cr platform{pc|psn|xbl} username`);
-            message.reply(`Valid platforms ${allowedPlatforms}`);
-            return
-        }
-
-        if (allowedPlatforms.indexOf(platform) > -1 ) {
-
-            multiplayerCombatRecord.get(client,username,platform)
-                .then(function (formattedCombatRecord) {
-                    message.reply(formattedCombatRecord);
-                    message.delete()
-                })
-                .catch(function (err) {
-                    console.log(`Error: ${err}`)
-                })
-        } else {
-            message.reply("Invalid platform")
-        }
-
+        mpCommand(message, client)
     }
 
     if (command === `${config.prefix}zm`) {
-
-        let platform = args[0];
-        let username = args.slice(1).join('%20');
-
-        let allowedPlatforms = ["xbl","psn","pc"];
-
-        if (!username) {
-            message.reply(`Incorrect command format, e.g ${config.prefix}cr platform{pc|psn|xbl} username`);
-            message.reply(`Valid platforms ${allowedPlatforms}`);
-            return
-        }
-        if (!platform) {
-            message.reply(`Incorrect command format, e.g ${config.prefix}cr platform{pc|psn|xbl} username`);
-            message.reply(`Valid platforms ${allowedPlatforms}`);
-            return
-        }
-
-        if (allowedPlatforms.indexOf(platform) > -1 ) {
-
-            zombiesCombatRecord.get(client,username,platform)
-                .then(function (formattedCombatRecord) {
-                    message.reply(formattedCombatRecord);
-                    message.delete()
-                })
-                .catch(function (err) {
-                    console.log(`Error: ${err}`)
-                })
-        } else {
-            message.reply("Invalid platform")
-        }
-
+        zmCommand(message, client)
     }
 
     if (command === `${config.prefix}bo`) {
-
-        let platform = args[0];
-        let username = args.slice(1).join('%20');
-
-        let allowedPlatforms = ["xbl","psn","pc"];
-
-        if (!username) {
-            message.reply(`Incorrect command format, e.g ${config.prefix}cr platform{pc|psn|xbl} username`);
-            message.reply(`Valid platforms ${allowedPlatforms}`);
-            return
-        }
-        if (!platform) {
-            message.reply(`Incorrect command format, e.g ${config.prefix}cr platform{pc|psn|xbl} username`);
-            message.reply(`Valid platforms ${allowedPlatforms}`);
-            return
-        }
-
-        if (allowedPlatforms.indexOf(platform) > -1 ) {
-
-            blackoutCombatRecord.get(client,username,platform)
-                .then(function (formattedCombatRecord) {
-                    message.reply(formattedCombatRecord);
-                    message.delete()
-                })
-                .catch(function (err) {
-                    console.log(`Error: ${err}`)
-                })
-        } else {
-            message.reply("Invalid platform")
-        }
-
+        boCommand(message, client)
     }
 
     if (command === `${config.prefix}help`) {

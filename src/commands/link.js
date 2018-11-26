@@ -7,6 +7,7 @@
 //const Discord = require('discord.js');
 const playerDiscordPlatformLink = require('../elasticsearch/playerDiscordPlatformLink.js');
 const helpCommand = require('./help.js');
+const logger = require('../utils/logging');
 
 /**
  * @param {Object} [message] - discord message object

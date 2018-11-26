@@ -43,7 +43,7 @@ module.exports = async function (gamemode, pStats) {
             });
         });
 
-        if (!isESClusterUp) { return console.error('Cluster is not up, maybe my ip is not whitelisted')}
+        if (!isESClusterUp) { return logger('elasticsearch','Cluster is not up, maybe my ip is not whitelisted')}
 
         //Send data to elastic
         const res = await esclient.index({

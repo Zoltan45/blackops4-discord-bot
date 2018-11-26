@@ -1,5 +1,5 @@
 /**
- * @file multiplayerCombatRecord.js
+ * @file mp.js
  * @author Lewey
  * @description build and format combat record for user
  **/
@@ -9,6 +9,96 @@ const Discord = require('discord.js');
 const images = require('../../config/imagesLinks.json');
 const timeFormatter = require('../../utils/timeFormatter');
 const postToElasticsearch = require('../../elasticsearch/postPlayerStats');
+const logger = require('../../utils/logging');
+const helpCommand = require('../help.js');
+
+const playerDiscordPlatformLink = require('../../elasticsearch/playerDiscordPlatformLink.js');
+
+/**
+ * Main handler takes message and validates args
+ *
+ * @param {Object} [client] - Discord client Object
+ * @param {Object} [message] - Discord message Object
+ **/
+
+module.exports = async function (message, client) {
+
+    const args = message.content.trim().split(/ +/g);
+    const command = args.shift().toLowerCase();
+    let platform = args[0];
+    let username = args.slice(1).join('%20');
+    let userId = message.author.id;
+    let allowedPlatforms = ["xbl","psn","pc"];
+
+    if (args.length === 0) {
+
+        let linkInfo = await playerDiscordPlatformLink.get(userId);
+        linkInfo = JSON.parse(linkInfo);
+
+        if (linkInfo === 'user-not-linked') {
+            return message.reply(`You have not linked your profile`)
+        }
+
+        let platform = linkInfo._source.bo4.platform;
+        let username = linkInfo._source.bo4.username;
+        let formattedCombatRecord = await get(client,username,platform);
+
+        message.delete();
+        return message.reply(formattedCombatRecord)
+
+    }
+
+    if (args.length === 1) {
+
+        let possibleMentionedUser = args[0].replace(/[^a-zA-Z0-9 ]/g, '');
+
+        if (!isNaN(possibleMentionedUser) && possibleMentionedUser.length === 18) {
+
+            //we have a user id now lets verify it
+            client.fetchUser(possibleMentionedUser)
+                .then(async function () {
+                    // it was a real user
+                    let linkInfo = await playerDiscordPlatformLink.get(possibleMentionedUser);
+
+                    if (linkInfo === 'user-not-linked') {
+                        return message.reply(`<@!${possibleMentionedUser}> does not have a linked profile`)
+                    }
+
+                    linkInfo = JSON.parse(linkInfo);
+
+                    let platform = linkInfo._source.bo4.platform;
+                    let username = linkInfo._source.bo4.username;
+
+                    let formattedCombatRecord = await get(client,username,platform);
+                    message.reply(formattedCombatRecord);
+                    message.delete()
+                })
+                .catch(function (err) {
+                    logger('discordlink', `The mentioned user with id ${possibleMentionedUser} does not exist`)
+                })
+        }
+
+    }
+
+    if (args.length === 2) {
+
+        if (!username && !platform) {
+            let helpEmbed = await helpCommand(client);
+            return message.reply(helpEmbed)
+        }
+
+        if (allowedPlatforms.indexOf(platform) > -1 ) {
+
+            let formattedCombatRecord = await get(client,username,platform);
+
+            message.reply(formattedCombatRecord);
+            message.delete()
+
+        }
+
+    }
+
+};
 
 /**
  * Use getPlayerData.js to retrieve users stats and format into Discord RichEmbed
@@ -20,11 +110,12 @@ const postToElasticsearch = require('../../elasticsearch/postPlayerStats');
  * @return {Object} [RichEmbed] - formatted player combat record for multiplayer
  **/
 
+
 async function get (client, username, platform) {
 
     return new Promise(async function (resolve, reject) {
 
-        let userData = await getPlayerData.getPlayerData(username, platform, 'mp')
+        let userData = await getPlayerData.getPlayerData(username, platform, 'mp');
 
         //Stats
         let pTotalPlayTime      = timeFormatter.toHHMMSS(userData.data.mp.lifetime.all.timePlayedTotal);
@@ -171,5 +262,3 @@ function formPlayerRichEmbed (client, pStats) {
 
     });
 }
-
-module.exports.get = (client, username, platform) => get(client, username, platform);

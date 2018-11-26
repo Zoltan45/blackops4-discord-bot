@@ -80,7 +80,8 @@ module.exports.get = async function (userId) {
         logger('elasticsearch', res);
 
         if (res.hits.total === 0) {
-            logger('discordlink', err)
+            logger('discordlink', `user-not-linked | ${userId}`);
+            resolve('user-not-linked')
         }
 
         resolve(JSON.stringify(res.hits.hits[0],null,4))
