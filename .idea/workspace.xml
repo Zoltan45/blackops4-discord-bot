@@ -3,11 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="1b827170-2021-4bab-bcb3-d641bb32dae8" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bot.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commands/playerCombatRecord/bo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/playerCombatRecord/bo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commands/playerCombatRecord/mp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/playerCombatRecord/mp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commands/playerCombatRecord/zm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/playerCombatRecord/zm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/config/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/logging.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/logging.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -24,26 +23,17 @@
       <file leaf-file-name="bot.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/bot.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
-              <caret line="53" column="35" lean-forward="true" selection-start-line="53" selection-start-column="35" selection-end-line="53" selection-end-column="35" />
+            <state relative-caret-position="357">
+              <caret line="21" selection-start-line="21" selection-end-line="21" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config.json" pinned="false" current-in-tab="true">
+      <file leaf-file-name="config.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/config/config.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="1" lean-forward="true" selection-end-line="11" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="logging.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/utils/logging.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="612">
-              <caret line="36" column="19" lean-forward="true" selection-start-line="36" selection-start-column="19" selection-end-line="36" selection-end-column="19" />
+            <state relative-caret-position="170">
+              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -51,7 +41,7 @@
       <file leaf-file-name="playerDiscordPlatformLink.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/elasticsearch/playerDiscordPlatformLink.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="908">
+            <state relative-caret-position="1394">
               <caret line="82" column="59" selection-start-line="82" selection-start-column="59" selection-end-line="82" selection-end-column="59" />
             </state>
           </provider>
@@ -60,8 +50,29 @@
       <file leaf-file-name="zm.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/commands/playerCombatRecord/zm.js">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="476">
+              <caret line="82" selection-start-line="82" selection-end-line="82" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mp.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/commands/playerCombatRecord/mp.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-34">
+              <caret line="55" lean-forward="true" selection-start-line="55" selection-end-line="55" />
+              <folding>
+                <element signature="n#!!block;n#formPlayerRichEmbed#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bo.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/commands/playerCombatRecord/bo.js">
+          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="272">
-              <caret line="16" selection-start-line="16" selection-end-line="21" selection-end-column="4" />
+              <caret line="67" lean-forward="true" selection-start-line="67" selection-end-line="67" />
             </state>
           </provider>
         </entry>
@@ -70,16 +81,7 @@
         <entry file="file://$PROJECT_DIR$/logs/request-26.11.2018.log">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="34">
-              <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="request-05.12.2018.log" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/logs/request-05.12.2018.log">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+              <caret line="2" selection-start-line="2" selection-end-line="2" />
             </state>
           </provider>
         </entry>
@@ -88,16 +90,7 @@
         <entry file="file://$PROJECT_DIR$/logs/elasticsearch-05.12.2018.log">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="17">
-              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="discordlink-05.12.2018.log" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/logs/discordlink-05.12.2018.log">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
             </state>
           </provider>
         </entry>
@@ -105,8 +98,17 @@
       <file leaf-file-name="guild-05.12.2018.log" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/logs/guild-05.12.2018.log">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+            <state relative-caret-position="102">
+              <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dbl-05.12.2018.log" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/logs/dbl-05.12.2018.log">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
             </state>
           </provider>
         </entry>
@@ -155,12 +157,13 @@
         <option value="$PROJECT_DIR$/src/commands/playerCombatRecord/multiplayerCombatRecord.js" />
         <option value="$PROJECT_DIR$/src/commands/playerCombatRecord/zombiesCombatRecord.js" />
         <option value="$PROJECT_DIR$/src/commands/profile.js" />
-        <option value="$PROJECT_DIR$/src/commands/playerCombatRecord/zm.js" />
-        <option value="$PROJECT_DIR$/src/commands/playerCombatRecord/mp.js" />
-        <option value="$PROJECT_DIR$/src/commands/playerCombatRecord/bo.js" />
         <option value="$PROJECT_DIR$/src/utils/logging.js" />
-        <option value="$PROJECT_DIR$/src/config/config.json" />
         <option value="$PROJECT_DIR$/src/bot.js" />
+        <option value="$PROJECT_DIR$/src/config/config.json" />
+        <option value="$PROJECT_DIR$/src/sharding.js" />
+        <option value="$PROJECT_DIR$/src/commands/playerCombatRecord/zm.js" />
+        <option value="$PROJECT_DIR$/src/commands/playerCombatRecord/bo.js" />
+        <option value="$PROJECT_DIR$/src/commands/playerCombatRecord/mp.js" />
       </list>
     </option>
   </component>
@@ -181,16 +184,17 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="21" />
-    <option name="y" value="-20" />
-    <option name="width" value="2269" />
-    <option name="height" value="1238" />
+    <option name="x" value="-1910" />
+    <option name="y" value="136" />
+    <option name="width" value="1704" />
+    <option name="height" value="927" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -218,25 +222,13 @@
               <item name="blackops4-discord-bot" type="b2602c69:ProjectViewProjectNode" />
               <item name="blackops4-discord-bot" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="blackops4-discord-bot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="blackops4-discord-bot" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="elasticsearch" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="blackops4-discord-bot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="blackops4-discord-bot" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
+              <item name="commands" type="462c0819:PsiDirectoryNode" />
+              <item name="playerCombatRecord" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -244,6 +236,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
   </component>
   <component name="RecentsManager">
@@ -271,13 +264,16 @@
   <component name="RunManager" selected="Node.js.bot.js">
     <configuration name="bot.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/bot.js" working-dir="$PROJECT_DIR$" />
     <configuration name="postPlayerStats.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/elasticsearch/postPlayerStats.js" working-dir="$PROJECT_DIR$/src/elasticsearch" />
+    <configuration name="sharding.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" nameIsGenerated="true" path-to-js-file="sharding.js" working-dir="$PROJECT_DIR$/src" />
     <list>
       <item itemvalue="Node.js.bot.js" />
       <item itemvalue="Node.js.postPlayerStats.js" />
+      <item itemvalue="Node.js.sharding.js" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Node.js.bot.js" />
+        <item itemvalue="Node.js.sharding.js" />
         <item itemvalue="Node.js.postPlayerStats.js" />
       </list>
     </recent_temporary>
@@ -301,23 +297,24 @@
       <workItem from="1543254034289" duration="8456000" />
       <workItem from="1543434883565" duration="14000" />
       <workItem from="1544033066354" duration="2564000" />
-      <workItem from="1544039604183" duration="4724000" />
+      <workItem from="1544039604183" duration="6931000" />
+      <workItem from="1544049077151" duration="439000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="63730000" />
+    <option name="totallyTimeSpent" value="66376000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="2062" height="1126" extended-state="6" />
+    <frame x="-1928" y="163" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12839507" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1369863" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50024694" side_tool="true" weight="0.4212121" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32929292" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4997531" visible="true" weight="0.2919192" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4997531" weight="0.42525253" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32929292" />
@@ -344,13 +341,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/utils/logging.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="34" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/utils/getPlayerData.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="612">
@@ -532,16 +522,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/commands/playerCombatRecord/mp.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" selection-start-line="22" selection-end-line="22" />
-          <folding>
-            <element signature="n#!!block;n#formPlayerRichEmbed#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/logs/discordlink-26.11.2018.log">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -556,20 +536,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/commands/playerCombatRecord/bo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-697">
-          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logs/dbl-05.12.2018.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/logs/discordlink-05.12.2018.log">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -577,66 +543,97 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/logs/guild-05.12.2018.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/utils/logging.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="612">
-          <caret line="36" column="19" lean-forward="true" selection-start-line="36" selection-start-column="19" selection-end-line="36" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/commands/playerCombatRecord/zm.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" selection-start-line="16" selection-end-line="21" selection-end-column="4" />
+          <caret line="36" column="19" selection-start-line="36" selection-start-column="19" selection-end-line="36" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/logs/request-05.12.2018.log">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
-          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/logs/elasticsearch-05.12.2018.log">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/logs/request-26.11.2018.log">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
-          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/elasticsearch/playerDiscordPlatformLink.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="908">
+        <state relative-caret-position="1394">
           <caret line="82" column="59" selection-start-line="82" selection-start-column="59" selection-end-line="82" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/bot.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="53" column="35" lean-forward="true" selection-start-line="53" selection-start-column="35" selection-end-line="53" selection-end-column="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/config/config.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="1" lean-forward="true" selection-end-line="11" selection-end-column="1" />
+        <state relative-caret-position="170">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sharding.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/bot.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logs/guild-05.12.2018.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logs/dbl-05.12.2018.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/commands/playerCombatRecord/zm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="82" selection-start-line="82" selection-end-line="82" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/commands/playerCombatRecord/mp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-34">
+          <caret line="55" lean-forward="true" selection-start-line="55" selection-end-line="55" />
+          <folding>
+            <element signature="n#!!block;n#formPlayerRichEmbed#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/commands/playerCombatRecord/bo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="67" lean-forward="true" selection-start-line="67" selection-end-line="67" />
         </state>
       </provider>
     </entry>

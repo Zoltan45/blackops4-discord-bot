@@ -80,7 +80,7 @@ module.exports = async function (message, client) {
 
     }
 
-    if (args.length === 2) {
+    if (args.length >= 2) {
 
         if (!username && !platform) {
             let helpEmbed = await helpCommand(client);
