@@ -1,8 +1,10 @@
 {
   "token": "",
+  "dblapitoken": "",
   "prefix": "bo4!",
   "blacklist": [],
   "owners": [],
+  "developers": [],
   "elasticsearch":{
     "host": ""
   },

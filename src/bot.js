@@ -8,8 +8,22 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const config = require('./config/config.json');
 
+const DBL = require("dblapi.js");
+const dbl = new DBL(config.dblapitoken, client); //Update server count on discordbots.org
+
+dbl.on('posted', () => {
+    logging('dbl', `Count of ${client.guilds.size} was posted`);
+    client.user.setActivity(`${client.guilds.size} Servers | ${client.users.size} Users | ${config.prefix}help`, { type: 'WATCHING' });
+});
+
+dbl.on('error', e => {
+    logging('dbl', e);
+});
+
 //****
 // Custom functions
+
+const logging = require('./utils/logging.js');
 
 const helpCommand = require('./commands/help.js');
 const profileCommand = require('./commands/profile.js');
@@ -27,12 +41,19 @@ client.on("ready", () => {
     client.user.setActivity(`${client.guilds.size} Servers | ${client.users.size} Users | ${config.prefix}help`, { type: 'WATCHING' });
 });
 
+client.on("guildCreate", (guild) => {
+    logging('guild', `ADDED | ${guild.id} | ${guild.name}`)
+});
+
+client.on("guildDelete", (guild) => {
+    logging('guild', `REMOVED | ${guild.id} | ${guild.name}`)
+});
+
 client.on("message", async message => {
 
-    // update activity on every new message
-    client.user.setActivity(`${client.guilds.size} Servers | ${client.users.size} Users | ${config.prefix}help`, { type: 'WATCHING' });
-
     if (message.author.bot) return;
+
+    client.user.setActivity(`${client.guilds.size} Servers | ${client.users.size} Users | ${config.prefix}help`, { type: 'WATCHING' });
 
     //get servers config
     let serverID = message.channel.guild.id;

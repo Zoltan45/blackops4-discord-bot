@@ -26,6 +26,12 @@ module.exports = function (type, stufftolog) {
         case 'discordlink':
             logfilename = "discordlink";
             break;
+        case 'guild':
+            logfilename = "guild";
+            break;
+        case 'dbl':
+            logfilename = "dbl";
+            break;
     }
 
     let options = {
