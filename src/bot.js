@@ -33,12 +33,19 @@ const mpCommand = require('./commands/playerCombatRecord/mp.js');
 const zmCommand = require('./commands/playerCombatRecord/zm.js');
 const boCommand = require('./commands/playerCombatRecord/bo.js');
 
+const esCatCommand = require('./commands/elasticsearch/cat.js');
+
 //
 //****
 
 client.on("ready", () => {
     console.log(`${client.user.username} is online`);
     client.user.setActivity(`${client.guilds.size} Servers | ${client.users.size} Users | ${config.prefix}help`, { type: 'WATCHING' });
+
+    client.guilds.forEach( g => {
+        console.log(`${g.name} | ${g.memberCount}`)
+    })
+
 });
 
 client.on("guildCreate", (guild) => {
@@ -64,18 +71,18 @@ client.on("message", async message => {
 
     const args = message.content.trim().split(/ +/g);
     const command = args.shift().toLowerCase();
-    const isAdmin = message.member.hasPermission('ADMINISTRATOR');
+
+    //const isAdmin = message.member.hasPermission('ADMINISTRATOR');
+    //const hasManageMessagePermissions = message.guild.me.hasPermission('MANAGE_MESSAGES');
+    //Dont do any thing if the bot doesn't have perms
+    //if (hasManageMessagePermissions === 'false') return;
+
     const isOwner = config.owners.indexOf(messageAuthourId) > -1;
-    const hasManageMessagePermissions = message.guild.me.hasPermission('MANAGE_MESSAGES');
+    const isDeveloper = config.developers.indexOf(messageAuthourId) > -1;
     const isBlacklisted = config.blacklist.indexOf(serverID) > -1;
 
     //Checks if server in backlist;
     if (isBlacklisted) return;
-
-    //Dont do any thing if the bot doesn't have perms
-    if (hasManageMessagePermissions === 'false') {
-        return
-    }
 
     if (command === `${config.prefix}mp`) {
         mpCommand(message, client)
@@ -100,6 +107,12 @@ client.on("message", async message => {
     if (command === `${config.prefix}link`) {
         linkCommand(message, client)
     }
+
+    if (command === `${config.prefix}escat`) {
+        if (!isDeveloper) return message.reply("This command is only for developers");
+        esCatCommand(message,client)
+    }
+
 });
 
 client.on("error", (err) => {

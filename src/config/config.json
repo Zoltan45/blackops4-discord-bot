@@ -3,8 +3,8 @@
   "dblapitoken": "",
   "prefix": "bo4!",
   "blacklist": [],
-  "owners": [],
-  "developers": [],
+  "owners": [""],
+  "developers": [""],
   "elasticsearch":{
     "host": ""
   },

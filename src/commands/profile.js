@@ -33,7 +33,6 @@ module.exports = async function (message, client) {
 
         let playerProfile = await formProfileRichEmbed(client, linkInfo);
         message.reply(playerProfile);
-        message.delete()
 
     } else {
 
@@ -53,7 +52,6 @@ module.exports = async function (message, client) {
 
                     let playerProfile = await formProfileRichEmbed(client, linkInfo);
                     message.reply(playerProfile);
-                    message.delete()
                 })
                 .catch(function (err) {
                     logger('discordlink', `The mentioned user with id ${possibleMentionedUser} does not exist`)

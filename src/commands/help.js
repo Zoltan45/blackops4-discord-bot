@@ -5,30 +5,19 @@ module.exports = function (client) {
 
     return new Promise(function (resolve, reject) {
 
-        rEmbed = new Discord.RichEmbed()
-            .setTitle('Command Help')
-            .addBlankField()
-            .addField('Multiplayer Combat Record',`${config.prefix}mp <platform> <username>`,true)
-            .addField('Parameters','platform{pc|psn|xbl} username = your username or battlenet id e.g Lewey#21342',true)
-            .addBlankField()
-            .addField('Zombies Combat Record',`${config.prefix}zm <platform> <username>`,true)
-            .addField('Parameters','platform{pc|psn|xbl} username = your username or battlenet id e.g Lewey#21342',true)
-            .addBlankField()
-            .addField('Blackout Combat Record',`${config.prefix}bo <platform> <username>`,true)
-            .addField('Parameters','platform{pc|psn|xbl} username = your username or battlenet id e.g Lewey#21342',true)
-            .addBlankField()
-            .addField('Link Account',`${config.prefix}link <platform> <username>`,true)
-            .addField('Description', 'Link discord user to a plaform and username to quickly view stats')
-            .addField('Parameters','platform{pc|psn|xbl} username = your username or battlenet id e.g Lewey#21342',true)
-            .addBlankField()
-            .addField('Profile',`${config.prefix}profile <@mention user>`,true)
-            .addField('Description', 'View personal and other users stats if account has been linked using link command')
-            .addField('Parameters',`<mention> Optional eg. ${config.prefix}profile @Lewey#6767`,true)
-            .addBlankField()
-            .setAuthor(client.user.username, client.user.avatarURL)
-            .setFooter('Developed by @Lewey#6767');
+        let message = "```" +
+            " == Commands/Help ==\n\n" +
+            " == Gamemodes == \n" +
+            `${config.prefix}mp       || Displays multiplayer stats               || ${config.prefix}mp, ${config.prefix}mp @Lewey#6767, ${config.prefix}mp pc Lewey#21445\n` +
+            `${config.prefix}bo       || Displays blackout stats                  || ${config.prefix}bo, ${config.prefix}bo @Lewey#6767, ${config.prefix}bo psn Lewey\n` +
+            `${config.prefix}zm       || Displays zombies stats                   || ${config.prefix}zm, ${config.prefix}zm @Lewey#6767, ${config.prefix}zm xbl Lewey\n\n` +
+            " == Other == \n" +
+            `${config.prefix}link     || Links discord to platform and username   || ${config.prefix}link pc lewey#21234, ${config.prefix}link psn Lewey-- \n` +
+            `${config.prefix}profile  || View your linked account                 || ${config.prefix}profile, ${config.prefix}profile @dave#3453\n\n` +
+            "Developed by @Lewey#6767" +
+            "```";
 
-        resolve(rEmbed)
+        resolve(message)
 
     });
 };

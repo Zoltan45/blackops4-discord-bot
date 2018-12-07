@@ -43,7 +43,6 @@ module.exports = async function (message, client) {
         let username = linkInfo._source.bo4.username;
         let formattedCombatRecord = await get(client,username,platform);
 
-        message.delete();
         return message.reply(formattedCombatRecord)
 
     }
@@ -71,7 +70,6 @@ module.exports = async function (message, client) {
 
                     let formattedCombatRecord = await get(client,username,platform);
                     message.reply(formattedCombatRecord);
-                    message.delete()
                 })
                 .catch(function (err) {
                     logger('discordlink', `The mentioned user with id ${possibleMentionedUser} does not exist`)
@@ -92,7 +90,6 @@ module.exports = async function (message, client) {
             let formattedCombatRecord = await get(client,username,platform);
 
             message.reply(formattedCombatRecord);
-            message.delete()
 
         }
 
